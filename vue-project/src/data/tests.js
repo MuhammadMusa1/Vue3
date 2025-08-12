@@ -1,5 +1,7 @@
-// src/data/tests.js
+/** @typedef {{ id: string, title: string, questions: Question[] }} Test */
+/** @typedef {{ id: number, questionText: string, options: string[], correctAnswer: string }} Question */
 
+/** @type {Test[]} */
 export const tests = [
   {
     id: 'math-basic',

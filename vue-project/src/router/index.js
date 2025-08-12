@@ -1,8 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import CheatsheetView from '../views/CheatsheetView.vue'
-import TestsView from '../views/TestsView.vue'
-import TestView from '../views/TestView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,24 +6,33 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('@/views/HomeView.vue'),
+      meta: { title: 'Главная' }
     },
     {
       path: '/cheatsheet',
       name: 'cheatsheet',
-      component: CheatsheetView
+      component: () => import('@/views/CheatsheetView.vue'),
+      meta: { title: 'Шпаргалки' }
     },
     {
       path: '/tests',
       name: 'tests',
-      component: TestsView
+      component: () => import('@/views/TestsView.vue'),
+      meta: { title: 'Тесты' }
     },
     {
-      path: '/tests/:id', // Динамический маршрут с параметром :id
+      path: '/tests/:id',
       name: 'test',
-      component: TestView
+      component: () => import('@/views/TestView.vue'),
+      meta: { title: 'Тест' }
     }
   ]
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || 'Приложение';
+  next();
+});
+
+export default router;
