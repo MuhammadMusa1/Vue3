@@ -1,12 +1,22 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { quasar, transformAssetUrls } from '@quasar/vite-plugin';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
     vue({ template: { transformAssetUrls } }),
-    quasar({ sassVariables: 'src/assets/quasar-variables.sass' })
+    quasar({
+      sassVariables: path.resolve(__dirname, 'src/assets/quasar-variables.sass')
+    })
   ],
-  resolve: { alias: { '@': '/src' } },
-  build: { minify: 'esbuild' }
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
+  build: {
+    minify: 'esbuild'
+  }
 });
+
